@@ -1,0 +1,174 @@
+:root {
+       --dark: #374151;
+       --darker: #1F2937;
+       --darkest: #111827;
+       --gray: #6B7280;
+       --light: #EEE;
+       --pink: #EC4899;
+       --purple: #8B5Cf6;
+       --red: #FF0000;
+}
+
+* {
+       box-sizing: border-box;
+       margin: 0;
+}
+
+body {
+       display: flex;
+       flex-direction: column;
+       min-height: 100vh;
+}
+
+ul {
+       list-style: none;
+}
+
+
+body {
+       background: var(--dark);
+}
+
+header {
+       padding: 30px 15px;
+       max-width: 800px;
+       width: 100%;
+       margin: 0 auto;
+}
+
+header h1 {
+       font-size: 40px;
+       font-weight: 300;
+       color: var(--gray);
+       margin-bottom: 15px;
+}
+
+.form input {
+       background-color: var(--darker);
+       padding: 15px;
+       border-radius: 20px;
+       margin-right: 15px;
+       font-size: 20px;
+}
+
+.new-task-submit {
+       color: var(--pink);
+       font-size: 20px;
+       font-weight: 700;
+       background-image: linear-gradient(to right, var(--pink), var(--purple));
+       -webkit-background-clip: text;
+       -webkit-text-fill-color: transparent;
+       cursor: pointer;
+}
+
+.new-task-submit:active {
+       opacity: 0.6;
+}
+
+main {
+       padding: 30px 15px;
+       max-width: 800px;
+       width: 100%;
+       margin: 0 auto;
+}
+
+.taskName {
+       font-size: 17px;
+       font-weight: 300;
+       color: var(--gray);
+       margin-bottom: 10px;
+       width: 100%;
+}
+
+.taskName:not(:read-only) {
+       color: var(--pink);
+}
+
+.taskContainer {
+       padding: 15px 0;
+}
+
+main h2 {
+       font-size: 30px;
+       font-weight: 300;
+       color: var(--gray);
+       margin-bottom: 15px;
+}
+
+.list {
+       max-width: 680px;
+       background-color: var(--darkest);
+       border-radius: 15px;
+       padding: 15px;
+       margin-bottom: 15px;
+
+}
+
+input,
+button {
+       border: none;
+       outline: none;
+       appearance: none;
+       background: none;
+}
+
+.block {
+       display: flex;
+       justify-content: space-between;
+}
+
+.descriptionName {
+       font-size: 14px;
+       font-weight: 300;
+       color: var(--gray);
+       margin-bottom: 5px;
+       width: 100%;
+       display: block;
+}
+
+.descriptionName:not(:read-only) {
+       color: var(--pink);
+}
+
+.completed {
+       font-size: 12px;
+       font-weight: 300;
+       color: var(--red);
+       margin-bottom: 5px;
+       width: 100%;
+       display: block;
+}
+
+.important {
+       font-size: 12px;
+       font-weight: 300;
+       color: var(--gray);
+       margin-bottom: 5px;
+       width: 100%;
+       display: block;
+}
+
+.btn-edit {
+       font-size: 12px;
+       font-weight: 900;
+       cursor: pointer;
+       text-transform: uppercase;
+       background-image: linear-gradient(to right, var(--pink), var(--purple));
+       -webkit-background-clip: text;
+       -webkit-text-fill-color: transparent;
+}
+.btn-edit:active {
+       opacity: 0.6;
+}
+
+.btn-remove {
+       padding: 0;
+       font-size: 12px;
+       font-weight: 700;
+       cursor: pointer;
+       text-transform: uppercase;
+       color: var(--red);
+}
+.btn-remove:active {
+       opacity: 0.6;
+}
