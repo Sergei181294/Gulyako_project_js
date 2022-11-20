@@ -1,11 +1,14 @@
 import { todos } from "./store.js";
+import { storage } from "./service.js";
 
 
 
 const body = document.querySelector("body");
 body.setAttribute("data-theme", "dark");
 const header = document.createElement("header");
-header.classList.add("box");
+
+const sectionAddTask = document.createElement("section");
+sectionAddTask.classList.add("box");
 const h1 = document.createElement("h1");
 h1.textContent = "Todo List 2022"
 
@@ -18,10 +21,10 @@ form.setAttribute("method", "get");
 form.classList.add('form');
 form.innerHTML = `
 <label>
-<input class="new-task-input" type="text" name="nameTask" placeholder="Write about your task">
+<input   class="new-task-input" id="first-input" type="text" name="nameTask" placeholder="Write about your task">
 </label>
 <label>
-<input class="new-task-input" type="text" name="description" placeholder="Describe your task">
+<input class="new-task-input" id="second-input" type="text" name="description" placeholder="Describe your task">
 </label>
 <button class="new-task-submit" type="submit">Add task</button>
 `;
@@ -29,17 +32,41 @@ form.innerHTML = `
 const formMode = document.createElement("form");
 formMode.setAttribute("method", "get");
 formMode.innerHTML = `
-<button type="button" class="dark-theme">Dark Mode</button>
-<button type="button" class="light-theme">Light Mode</button>
+<div class="themeDecor">
+<p class="nameTheme">Light Mode</p>
+<label class="switch">
+<input type="checkbox" class="switch_input">
+<span id="changeTheme" class="switch_slider"></span>
+</label> 
+</div>
 `
 
+
 const formSearch = document.createElement("form");
+formSearch.classList.add("formSearch");
+
 formSearch.setAttribute("method", "get");
 formSearch.innerHTML = `
 <label>
-<input type="search" class="inputSearch" placeholder="Искать здесь...">
-<label>
+<input type="search" class="inputSearch" placeholder="Search here...">
+</label>
 `
+const divModeAndFiltering = document.createElement("div");
+const buttonCompleted = document.createElement("button");
+buttonCompleted.classList.add("btn-compl");
+buttonCompleted.textContent = "Show completed tasks"
+const buttonImportant = document.createElement("button");
+buttonImportant.classList.add("btn-imp");
+buttonImportant.textContent = "Show important tasks"
+const buttonAllTasks = document.createElement("button");
+buttonAllTasks.classList.add("btn-all");
+buttonAllTasks.textContent = "Show all tasks"
+
+
+divModeAndFiltering.append(formMode, buttonCompleted, buttonImportant, buttonAllTasks);
+divModeAndFiltering.classList.add("modeAndFiltering")
+
+header.append(divModeAndFiltering, formSearch);
 
 const main = document.createElement("main");
 const divContent = document.createElement("div");
@@ -48,8 +75,11 @@ const h2 = document.createElement("h2");
 main.prepend(h2);
 h2.textContent = "Tasks";
 
-body.append(formMode, formSearch, header, main);
-header.append(h1, form);
+body.append(header, sectionAddTask, main);
+sectionAddTask.append(h1, form);
+
+
+
 
 
 const todosTemplate = {
@@ -57,41 +87,49 @@ const todosTemplate = {
               divContent.innerHTML = null;
               if (todos.tasks.length === 0) {
                      const h3 = document.createElement("h3");
-                     h3.classList.add('color-primary');
-                     h3.textContent = "Список пуст";
+                     h3.classList.add('empty-color');
+                     h3.textContent = "The list is empty";
                      return divContent.append(h3);
               }
+
+
+
+
 
               const ul = document.createElement("ul");
               ul.classList.add("taskContainer");
               divContent.append(ul);
-
+              console.log(todos.tasks)
               todos.tasks.forEach((task) => {
+                     const checked = task.completed ? "checked" : "";
+                     const checked_2 = task.importance ? "checked" : "";
                      ul.innerHTML += `
-                            <li class="list">
+                            <li class="${task.importance ? "list-importance" : "list"}">
                             <div>
                             <div class="block">
                                    <div class="titleTask">
-                                   <input type="text" class="taskName" value="${task.taskName}" readonly>
+                                   <input type="text" data-taskName-id="${task.id}" class="taskName" value="${task.taskName}" readonly>
                                    </div>
                                    <div class="btn-block">
-                                   <button class="btn-edit edit-btn-one">Edit</button>
-                                   <button class="btn-remove" type="button" data-task-id='${task.id}'>Remove</button>
+                                   <button class="btn-edit" data-edit-id="${task.id}">Edit</button>
+                                   <button class="btn-remove" type="button" data-remove-id='${task.id}'>Remove</button>
                                    </div>
                                    </div>
                             <div class="block">
                                    <div class="descriptionTask">
-                                   <input type="text" class="descriptionName" value="${task.describeTask}" readonly>
+                                   <input type="text" data-description-id="${task.id}" class="descriptionName" value="${task.describeTask}" readonly>
                                    </div>
                                    </div>
                             <div class="block">
                                    <div class="completedTask">
-                                   <input type="text" class="completed" value="completed: ${task.complited}" readonly>
+                                   <input type="checkbox"  ${checked} class="completed" data-complete-id="${task.id}">
+                                   <p class="${task.completed ? "check-on" : "check-off"}">Completed</p>
                                    </div>
                                    </div>
                             <div class="block">
                                    <div class="importantTask">
-                                   <input type="text" class="important" value="important: ${task.important}" readonly>
+                                   <input type="checkbox" ${checked_2} class="important" data-importance-id="${task.id}">
+                                   <p  class="${task.importance ? "checkOn-importance" : "checkOff-importance"}">Importance</p>
                                    </div>
                                    </div>
                                    </div>
@@ -99,13 +137,14 @@ const todosTemplate = {
                             </li>
                             `;
               });
-              // this.edit();
        },
 
 
-       removeTask() {
+
+
+       addRemoveTaskHandler() {
               divContent.addEventListener("click", (e) => {
-                     const taskId = e.target.getAttribute("data-task-id");
+                     const taskId = e.target.getAttribute("data-remove-id");
                      if (taskId) {
                             todos.removeTask(Number(taskId));
                             this.renderToDo();
@@ -118,21 +157,24 @@ const todosTemplate = {
 
        addTask() {
               let task = {
-                     complited: false,
-                     important: false,
+                     completed: false,
+                     importance: false,
               };
-              form.addEventListener("input", (e) => {
-                     task[e.target.name] = e.target.value;
-                     localStorage.setItem("tasks", JSON.stringify(task));
-              })
               form.addEventListener("click", (e) => {
                      e.preventDefault();
                      if (e.target.type === "submit") {
-                            let mytask = JSON.parse(localStorage.getItem("tasks"));
-                            todos.anotherTask(mytask.nameTask, mytask.description, mytask.complited, mytask.important);
-                            todosTemplate.renderToDo();
-                            form.reset();
-                            localStorage.setItem("tasks", JSON.stringify(todos.tasks));
+                            const first_input = document.getElementById("first-input");
+                            const second_input = document.getElementById("second-input");
+                            if (first_input.value.length === 0) {
+                                   alert("Write about your task")
+                            } else {
+                                   task[first_input.name] = first_input.value;
+                                   task[second_input.name] = second_input.value;
+                                   todos.anotherTask(task.nameTask, task.description, task.completed, task.importance);
+                                   this.renderToDo();
+                                   form.reset();
+                                   storage.setTodos(todos.tasks);
+                            }
                      }
 
               })
@@ -141,61 +183,128 @@ const todosTemplate = {
 
        searchTask() {
               formSearch.addEventListener("input", (e) => {
-                     todos.tasks = todos.tasks.filter(task => task.taskName.includes(e.target.value) === true);
-                     todosTemplate.renderToDo();
+                     if (e.target.value === "") {
+                            todos.tasks = JSON.parse(localStorage.getItem("tasks"));
+                     }
                      todos.tasks = JSON.parse(localStorage.getItem("tasks"));
+                     todos.tasks = todos.tasks.filter(task => task.taskName.includes(e.target.value) === true);
+                     this.renderToDo();
               })
        },
 
        changeTheme() {
-              let dark = document.querySelector(".dark-theme")
-              dark.addEventListener("click", (e) => {
-                     e.preventDefault();
+              let theme = document.getElementById("changeTheme");
+              theme.addEventListener("click", () => {
                      const themeName = document.body.getAttribute("data-theme");
                      if (themeName !== "dark") {
-                            document.body.setAttribute("data-theme", "dark")
-                     }
-              });
-
-              let light = document.querySelector(".light-theme");
-              light.addEventListener("click", (e) => {
-                     e.preventDefault();
-                     const themeName = document.body.getAttribute("data-theme");
-                     if (themeName !== "light") {
+                            document.body.setAttribute("data-theme", "dark");
+                            storage.setTheme("dark")
+                     } else {
                             document.body.setAttribute("data-theme", "light")
+                            storage.setTheme("light")
                      }
               });
        },
 
-       // edit() {
-       //        const editTaskName = document.querySelector(".edit-btn-one");
-       //        const inputTaskName = document.querySelector(".taskName");
-       //        const inputDescription = document.querySelector(".descriptionName");
-       //        const ul = document.querySelector("ul");
+       changeCompleted(id) {
+              const todo = todos.tasks.find((todo) => todo.id === id)
+              if (todo && todo.completed === false) {
+                     todo.completed = true;
+                     storage.setTodos(todos.tasks)
+              } else if (todo && todo.completed === true) {
+                     todo.completed = false;
+                     storage.setTodos(todos.tasks)
+              }
+       },
 
-       //        ul.addEventListener("click", (e) => {
-       //               e.preventDefault();
-       //               if(editTaskName.innerText.toLowerCase() === "edit") {
-       //                      inputTaskName.removeAttribute("readonly");
-       //               inputDescription.removeAttribute("readonly");
-       //               inputTaskName.focus();
-       //               inputDescription.focus();
-       //               editTaskName.innerText = "Save";
-       //               } else {
-       //                      inputTaskName.setAttribute("readonly", "readonly");
-       //                      inputDescription.setAttribute("readonly", "readonly");
-       //                      editTaskName.innerText = "Edit";
-       //                  }
+       addChangeComplitedHandler() {
+              divContent.addEventListener("click", (e) => {
+                     const checkboxId = e.target.getAttribute("data-complete-id")
+                     if (checkboxId) {
+                            this.changeCompleted(Number(checkboxId));
+                            this.renderToDo();
+                     }
+              })
+       },
+
+       changeImportance(id) {
+              const task = todos.tasks.find((todo) => todo.id === id)
+              if (task && task.importance === false) {
+                     task.importance = true;
+                     storage.setTodos(todos.tasks)
+              } else if (task && task.importance === true) {
+                     task.importance = false;
+                     storage.setTodos(todos.tasks)
+              }
+       },
+       addChangeImportanceHandler() {
+              divContent.addEventListener("click", (e) => {
+                     const importanceId = e.target.getAttribute("data-importance-id")
+                     if (importanceId) {
+                            console.log("hello")
+                            this.changeImportance(Number(importanceId));
+                            this.renderToDo();
+                     }
+              })
+       },
+       filteringTasks() {
+              buttonCompleted.addEventListener("click", (e) => {
+                     e.preventDefault();
+                     todos.tasks = storage.getTodos().filter(task => task.completed === true);
+                     storage.setFilteringTasks(todos.tasks)
+                     this.renderToDo();
+              })
+              buttonImportant.addEventListener("click", (e) => {
+                     e.preventDefault();
+                     todos.tasks = storage.getTodos().filter(task => task.importance === true);
+                     storage.setFilteringTasks(todos.tasks)
+                     this.renderToDo();
+              })
+              buttonAllTasks.addEventListener("click", (e) => {
+                     e.preventDefault();
+                     todos.tasks = storage.getTodos();
+                     storage.setFilteringTasks(todos.tasks)
+                     this.renderToDo();
+              })
+       },
+
+       addEditHandler() {
+
+              divContent.addEventListener("click", (e) => {
+                     const editId = e.target.getAttribute("data-edit-id")
+                     const todo = todos.tasks.find(todo => todo.id == editId)
+                     const inputTaskName = document.querySelector(`[data-taskName-id = "${editId}"]`)
+                     const inputDescription = document.querySelector(`[data-description-id = "${editId}"]`)
+                     if(e.target.innerText.toLowerCase() === "edit"){
+                            inputTaskName.removeAttribute("readonly")
+                            inputDescription.removeAttribute("readonly")
+                            e.target.innerText = "Save"
+                            inputTaskName.focus();       
+                     } else if (e.target.innerText.toLowerCase() === "save"){
+                            inputTaskName.setAttribute("readonly","readonly")
+                            inputDescription.setAttribute("readonly","readonly")
+                            e.target.innerText = "Edit"
+                            console.log(inputTaskName)
+                            todo.taskName = inputTaskName.value
+                            todo.describeTask = inputDescription.value
+                            storage.setTodos(todos.tasks)
+                     }
+                    
                      
-       //        })
-       // },
+              })
+       },
+
 
        init() {
               this.renderToDo();
-              this.removeTask();
+              this.addRemoveTaskHandler();
               this.addTask();
               this.searchTask();
-              // this.changeTheme();
+              this.changeTheme();
+              this.addChangeComplitedHandler();
+              this.addChangeImportanceHandler();
+              this.filteringTasks();
+              this.addEditHandler();
        },
 
 }

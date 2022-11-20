@@ -1,27 +1,34 @@
 export const todos = {
        tasks: [],
-       setTodos(todos){
+       setTodos(todos) {
               this.tasks = todos;
        },
 
-       anotherTask(taskName, describeTask, complited, important) {
+       anotherTask(taskName, describeTask, completed, importance) {
               const newTask = {
-                     id: Math.random(), 
+                     id: Math.random(),
                      taskName,
                      describeTask,
-                     complited,
-                     important,
+                     completed,
+                     importance,
               }
               this.tasks.push(newTask);
        },
-       removeTask(taskId){
+       removeTask(taskId) {
               this.tasks = this.tasks.filter(task => task.id !== taskId);
+              localStorage.setItem("tasks", JSON.stringify(this.tasks));
 
        },
 }
-let todosFromStorage = localStorage.getItem('tasks') 
+let todosFromStorage = localStorage.getItem('tasks')
 
 if (todosFromStorage !== null) {
-  todosFromStorage = JSON.parse(todosFromStorage)
-  todos.setTodos(todosFromStorage)
+       todosFromStorage = JSON.parse(todosFromStorage)
+       todos.setTodos(todosFromStorage)
 }
+// let filteringTodos = sessionStorage.getItem("filteringTasks")
+
+// if (filteringTodos !== null) {
+//        filteringTodos = JSON.parse(filteringTodos)
+//        todos.setTodos(filteringTodos)
+// }
