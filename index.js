@@ -2,85 +2,12 @@ import { todos } from "./store.js";
 import { storage } from "./service.js";
 
 
-
-const body = document.querySelector("body");
-body.setAttribute("data-theme", "dark");
-const header = document.createElement("header");
-
-const sectionAddTask = document.createElement("section");
-sectionAddTask.classList.add("box");
-const h1 = document.createElement("h1");
-h1.textContent = "Todo List 2022"
-
-
-
-
-
-const form = document.createElement("form");
-form.setAttribute("method", "get");
-form.classList.add('form');
-form.innerHTML = `
-<label>
-<input   class="new-task-input" id="first-input" type="text" name="nameTask" placeholder="Write about your task">
-</label>
-<label>
-<input class="new-task-input" id="second-input" type="text" name="description" placeholder="Describe your task">
-</label>
-<button class="new-task-submit" type="submit">Add task</button>
-`;
-
-const formMode = document.createElement("form");
-formMode.setAttribute("method", "get");
-formMode.innerHTML = `
-<div class="themeDecor">
-<p class="nameTheme">Light Mode</p>
-<label class="switch">
-<input type="checkbox" class="switch_input">
-<span id="changeTheme" class="switch_slider"></span>
-</label> 
-</div>
-`
-
-
-const formSearch = document.createElement("form");
-formSearch.classList.add("formSearch");
-
-formSearch.setAttribute("method", "get");
-formSearch.innerHTML = `
-<label>
-<input type="search" class="inputSearch" placeholder="Search here...">
-</label>
-`
-const divModeAndFiltering = document.createElement("div");
-const buttonCompleted = document.createElement("button");
-buttonCompleted.classList.add("btn-compl");
-buttonCompleted.textContent = "Show completed tasks"
-const buttonImportant = document.createElement("button");
-buttonImportant.classList.add("btn-imp");
-buttonImportant.textContent = "Show important tasks"
-const buttonAllTasks = document.createElement("button");
-buttonAllTasks.classList.add("btn-all");
-buttonAllTasks.textContent = "Show all tasks"
-
-
-divModeAndFiltering.append(formMode, buttonCompleted, buttonImportant, buttonAllTasks);
-divModeAndFiltering.classList.add("modeAndFiltering")
-
-header.append(divModeAndFiltering, formSearch);
-
-const main = document.createElement("main");
-const divContent = document.createElement("div");
-main.append(divContent);
-const h2 = document.createElement("h2");
-main.prepend(h2);
-h2.textContent = "Tasks";
-
-body.append(header, sectionAddTask, main);
-sectionAddTask.append(h1, form);
-
-
-
-
+const form = document.querySelector(".form");
+const formSearch = document.querySelector(".formSearch");
+const buttonCompleted = document.querySelector(".btn-compl");
+const buttonImportant = document.querySelector(".btn-imp");
+const buttonAllTasks = document.querySelector(".btn-all");
+const divContent = document.querySelector(".divContent");
 
 const todosTemplate = {
        renderToDo() {
@@ -91,10 +18,6 @@ const todosTemplate = {
                      h3.textContent = "The list is empty";
                      return divContent.append(h3);
               }
-
-
-
-
 
               const ul = document.createElement("ul");
               ul.classList.add("taskContainer");
@@ -152,7 +75,6 @@ const todosTemplate = {
               })
 
        },
-
 
 
        addTask() {

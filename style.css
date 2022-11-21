@@ -90,7 +90,7 @@ header {
        opacity: 0.6;
 }
 
-main {
+.box_2 {
        padding: 30px 15px;
        max-width: 800px;
        width: 100%;
@@ -113,7 +113,7 @@ main {
        padding: 15px 0;
 }
 
-main h2 {
+section h2 {
        font-size: 30px;
        font-weight: 300;
        color: var(--txt-col);
