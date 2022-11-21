@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+       <meta charset="UTF-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>toDoList</title>
+       <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+
+<body data-theme="dark">
+       <header>
+              <div class="modeAndFiltering">
+                     <form method="get" class="formMode">
+                            <div class="themeDecor">
+                                   <p class="nameTheme">Light Mode</p>
+                                   <label class="switch">
+                                          <input type="checkbox" class="switch_input">
+                                          <span id="changeTheme" class="switch_slider"></span>
+                                   </label>
+                            </div>
+                     </form>
+                     <button class="btn-compl">Show completed tasks</button>
+                     <button class="btn-imp">Show important tasks</button>
+                     <button class="btn-all">Show all tasks</button>
+              </div>
+              <form method="get" class="formSearch">
+                     <label>
+                            <input type="search" class="inputSearch" placeholder="Search here...">
+                     </label>
+              </form>
+       </header>
+       <main>
+       <section class="box">
+              <h1>Todo List 2022</h1>
+              <form method="get" class="form">
+                     <label>
+                            <input class="new-task-input" id="first-input" type="text" name="nameTask"
+                                   placeholder="Write about your task">
+                     </label>
+                     <label>
+                            <input class="new-task-input" id="second-input" type="text" name="description"
+                                   placeholder="Describe your task">
+                     </label>
+                     <button class="new-task-submit" type="submit">Add task</button>
+              </form>
+       </section>
+       <section class="box_2">
+              <h2>Tasks</h2>
+              <div class="divContent"></div>
+       </section>
+</main>
+</body>
+<script type="module" src="index.js"></script>
+<script type="module" src="store.js"></script>
+<script type="module" src="service.js"></script>
+
+</html>
