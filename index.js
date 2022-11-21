@@ -107,9 +107,11 @@ const todosTemplate = {
               formSearch.addEventListener("input", (e) => {
                      if (e.target.value === "") {
                             todos.tasks = JSON.parse(localStorage.getItem("tasks"));
+                            storage.setSearchTask(todos.tasks)
                      }
                      todos.tasks = JSON.parse(localStorage.getItem("tasks"));
                      todos.tasks = todos.tasks.filter(task => task.taskName.includes(e.target.value) === true);
+                     storage.setSearchTask(todos.tasks)
                      this.renderToDo();
               })
        },
@@ -197,22 +199,22 @@ const todosTemplate = {
                      const todo = todos.tasks.find(todo => todo.id == editId)
                      const inputTaskName = document.querySelector(`[data-taskName-id = "${editId}"]`)
                      const inputDescription = document.querySelector(`[data-description-id = "${editId}"]`)
-                     if(e.target.innerText.toLowerCase() === "edit"){
+                     if (e.target.innerText.toLowerCase() === "edit") {
                             inputTaskName.removeAttribute("readonly")
                             inputDescription.removeAttribute("readonly")
                             e.target.innerText = "Save"
-                            inputTaskName.focus();       
-                     } else if (e.target.innerText.toLowerCase() === "save"){
-                            inputTaskName.setAttribute("readonly","readonly")
-                            inputDescription.setAttribute("readonly","readonly")
+                            inputTaskName.focus();
+                     } else if (e.target.innerText.toLowerCase() === "save") {
+                            inputTaskName.setAttribute("readonly", "readonly")
+                            inputDescription.setAttribute("readonly", "readonly")
                             e.target.innerText = "Edit"
                             console.log(inputTaskName)
                             todo.taskName = inputTaskName.value
                             todo.describeTask = inputDescription.value
                             storage.setTodos(todos.tasks)
                      }
-                    
-                     
+
+
               })
        },
 

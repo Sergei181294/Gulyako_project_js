@@ -26,9 +26,3 @@ if (todosFromStorage !== null) {
        todosFromStorage = JSON.parse(todosFromStorage)
        todos.setTodos(todosFromStorage)
 }
-// let filteringTodos = sessionStorage.getItem("filteringTasks")
-
-// if (filteringTodos !== null) {
-//        filteringTodos = JSON.parse(filteringTodos)
-//        todos.setTodos(filteringTodos)
-// }

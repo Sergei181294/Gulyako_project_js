@@ -12,5 +12,8 @@ export const storage = {
        },
        setFilteringTasks(todos) {
               sessionStorage.setItem("filteringTasks", JSON.stringify(todos));
+       },
+       setSearchTask(tasks){
+              sessionStorage.setItem("searchTasks", JSON.stringify(tasks))
        }
 };
