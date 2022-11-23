@@ -63,11 +63,6 @@ import { storage } from "./service.js";
        }
 
 
-
-
-
-
-
        function removeTaskHandler(e) {
               const taskId = e.target.getAttribute("data-remove-id");
               if (taskId) {
@@ -76,7 +71,6 @@ import { storage } from "./service.js";
                      renderToDo();
               }
        }
-
 
        function addTaskHandler(e) {
               let task = {
@@ -109,8 +103,6 @@ import { storage } from "./service.js";
               storage.setSearchTask(todos.tasks)
               renderToDo();
        }
-
-
 
 
        function changeThemeHandler() {
@@ -198,16 +190,16 @@ import { storage } from "./service.js";
               let todosFromStorage = storage.getTodos()
               todos.setTodos(todosFromStorage)
 
-              divContent.addEventListener("click", (e) => removeTaskHandler(e))
-              buttonAddTask.addEventListener("click", (e) => addTaskHandler(e))
-              formSearch.addEventListener("input", (e) => searchTaskHandler(e))
+              divContent.addEventListener("click", removeTaskHandler)
+              buttonAddTask.addEventListener("click", addTaskHandler)
+              formSearch.addEventListener("input", searchTaskHandler)
               theme.addEventListener("click", changeThemeHandler)
-              divContent.addEventListener("click", (e) => changeComplitedHandler(e))
-              divContent.addEventListener("click", (e) => changeImportanceHandler(e))
-              buttonCompleted.addEventListener("click", (e) => filteringTasksHandler(e))
-              buttonImportant.addEventListener("click", (e) => filteringTasksHandler(e))
-              buttonAllTasks.addEventListener("click", (e) => filteringTasksHandler(e))
-              divContent.addEventListener("click", (e) => editHandler(e))
+              divContent.addEventListener("click", changeComplitedHandler)
+              divContent.addEventListener("click", changeImportanceHandler)
+              buttonCompleted.addEventListener("click", filteringTasksHandler)
+              buttonImportant.addEventListener("click", filteringTasksHandler)
+              buttonAllTasks.addEventListener("click", filteringTasksHandler)
+              divContent.addEventListener("click", editHandler)
 
               renderToDo();
        }
