@@ -1,34 +1,34 @@
 body[data-theme="dark"] {
        /* --dark */
-       --bg-bd: #374151;
+       --background-page: #374151;
        /* --darker */
-       --bg-inp: #1F2937;
+       --bg-inputTask: #1F2937;
        /* --darkest */
-       --bg-list: #111827;
+       --bg-tasks: #111827;
        /* --gray */
        --txt-col: #6B7280;
        /* --light */
        --inp-col: #EEE;
        /* --pink */
-       --bgn-gr: #EC4899;
+       --gradient-first-col: #EC4899;
        /* --purple */
-       --fn-gr: #8B5Cf6;
+       --gradient-second-color: #8B5Cf6;
        /* --red */
-       --del: #FF0000;
+       --btn-delete: #FF0000;
 
-       --compl: #0fb400;
+       --btn-complete: #0fb400;
 }
 
 body[data-theme="light"] {
-       --bg-bd: #93ffa2;
-       --bg-inp: #3eff38;
-       --bg-list: #25ff11;
+       --background-page: #93ffa2;
+       --bg-inputTask: #3eff38;
+       --bg-tasks: #25ff11;
        --txt-col: #148609;
        --inp-col: #fafbfd;
-       --bgn-gr: #a54695;
-       --fn-gr: #0e7a13;
-       --del: #FF0000;
-       --compl: #0fb400;
+       --gradient-first-col: #a54695;
+       --gradient-second-color: #0e7a13;
+       --btn-delete: #FF0000;
+       --btn-complete: #0fb400;
 }
 
 * {
@@ -40,7 +40,7 @@ body {
        display: flex;
        flex-direction: column;
        min-height: 100vh;
-       background: var(--bg-bd);
+       background: var(--background-page);
 }
 
 ul {
@@ -53,14 +53,14 @@ header {
        margin: 10px 10px 0 10px;
 }
 
-.box {
+.blockForAddTask {
        padding: 30px 15px;
        max-width: 800px;
        width: 100%;
        margin: 0 auto;
 }
 
-.box h1 {
+.blockForAddTask h1 {
        font-size: 40px;
        font-weight: 300;
        color: var(--txt-col);
@@ -68,7 +68,7 @@ header {
 }
 
 .form input {
-       background-color: var(--bg-inp);
+       background-color: var(--bg-inputTask);
        padding: 15px;
        border-radius: 20px;
        margin-right: 15px;
@@ -76,21 +76,21 @@ header {
        color: var(--inp-col);
 }
 
-.new-task-submit {
-       color: var(--bgn-gr);
+.newTaskSubmit {
+       color: var(--gradient-first-col);
        font-size: 20px;
        font-weight: 700;
-       background-image: linear-gradient(to right, var(--bgn-gr), var(--fn-gr));
+       background-image: linear-gradient(to right, var(--gradient-first-col), var(--gradient-second-color));
        -webkit-background-clip: text;
        -webkit-text-fill-color: transparent;
        cursor: pointer;
 }
 
-.new-task-submit:active {
+.newTaskSubmit:active {
        opacity: 0.6;
 }
 
-.box_2 {
+.blockForRenderTasks {
        padding: 30px 15px;
        max-width: 800px;
        width: 100%;
@@ -106,10 +106,10 @@ header {
 }
 
 .taskName:not(:read-only) {
-       color: var(--bgn-gr);
+       color: var(--gradient-first-col);
 }
 
-.taskContainer {
+.tasksContainer {
        padding: 15px 0;
 }
 
@@ -122,7 +122,7 @@ section h2 {
 
 .list {
        max-width: 680px;
-       background-color: var(--bg-list);
+       background-color: var(--bg-tasks);
        border-radius: 15px;
        padding: 15px;
        margin-bottom: 15px;
@@ -130,11 +130,11 @@ section h2 {
 
 .list-importance {
        max-width: 680px;
-       background-color: var(--bg-list);
+       background-color: var(--bg-tasks);
        border-radius: 15px;
        padding: 15px;
        margin-bottom: 15px;
-       border: 3px solid var(--del);
+       border: 3px solid var(--btn-delete);
 }
 
 input,
@@ -160,13 +160,13 @@ button {
 }
 
 .descriptionName:not(:read-only) {
-       color: var(--bgn-gr);
+       color: var(--gradient-first-col);
 }
 
 .completed {
        font-size: 12px;
        font-weight: 300;
-       color: var(--del);
+       color: var(--btn-delete);
        width: 100%;
        display: block;
        margin-right: 5px;
@@ -186,7 +186,7 @@ button {
        font-weight: 900;
        cursor: pointer;
        text-transform: uppercase;
-       background-image: linear-gradient(to right, var(--bgn-gr), var(--fn-gr));
+       background-image: linear-gradient(to right, var(--gradient-first-col), var(--gradient-second-color));
        -webkit-background-clip: text;
        -webkit-text-fill-color: transparent;
 }
@@ -201,7 +201,7 @@ button {
        font-weight: 700;
        cursor: pointer;
        text-transform: uppercase;
-       color: var(--del);
+       color: var(--btn-delete);
 }
 
 .btn-remove:active {
@@ -215,14 +215,14 @@ button {
        height: 34px;
 }
 
-.switch_input {
+.switchInput {
        width: 0;
        height: 0;
        opacity: 0;
 
 }
 
-.switch_slider {
+.switchSlider {
        position: absolute;
        cursor: pointer;
        top: 0;
@@ -234,7 +234,7 @@ button {
        transition: 0.5s;
 }
 
-.switch_slider::before {
+.switchSlider::before {
        content: "";
        position: absolute;
        cursor: pointer;
@@ -249,15 +249,15 @@ button {
 
 }
 
-.switch_input:focus+.switch_slider {
+.switchInput:focus+.switchSlider {
        box-shadow: 0 0 1px var(--txt-col);
 }
 
-.switch_input:checked+.switch_slider {
+.switchInput:checked+.switchSlider {
        background-color: var(--txt-col);
 }
 
-.switch_input:checked+.switch_slider::before {
+.switchInput:checked+.switchSlider::before {
        transform: translate(26px);
 }
 
@@ -277,14 +277,15 @@ button {
        display: flex;
 }
 
-.modeAndFiltering {
+.blockForModeAndFiltering {
        display: flex;
 }
 
-.inputSearch::-webkit-input-placeholder {
+.inputSearch {
+       background: var(--bg-inputTask);
+       border-radius: 10px;
+       padding: 5px;
        font-size: 15px;
-
-
 }
 
 .completedTask {
@@ -293,11 +294,11 @@ button {
 }
 
 .check-off {
-       color: var(--del);
+       color: var(--btn-delete);
 }
 
 .check-on {
-       color: var(--compl);
+       color: var(--btn-complete);
 }
 
 .importantTask {
@@ -305,60 +306,64 @@ button {
 }
 
 .checkOn-importance {
-       color: var(--del);
+       color: var(--btn-delete);
 }
 
 .checkOff-importance {
        color: var(--txt-col);
 }
 
-.btn-compl {
-       color: var(--bgn-gr);
+.btnCompl {
+       color: var(--gradient-first-col);
        margin-left: 10px;
        font-size: 15px;
        font-weight: 700;
-       background-image: linear-gradient(to right, var(--bgn-gr), var(--fn-gr));
+       background-image: linear-gradient(to right, var(--gradient-first-col), var(--gradient-second-color));
        -webkit-background-clip: text;
        -webkit-text-fill-color: transparent;
        cursor: pointer;
 }
 
-.btn-compl:active {
+.btnCompl:active {
        opacity: 0.6;
 }
 
-.btn-imp {
-       color: var(--bgn-gr);
+.btnImp {
+       color: var(--gradient-first-col);
        margin-left: 10px;
        font-size: 15px;
        font-weight: 700;
-       background-image: linear-gradient(to right, var(--bgn-gr), var(--fn-gr));
-       -webkit-background-clip: text;
-       -webkit-text-fill-color: transparent;
-       cursor: pointer;
-}
-.btn-imp:active {
-       opacity: 0.6;
-}
-.btn-all {
-       color: var(--bgn-gr);
-       margin-left: 10px;
-       font-size: 15px;
-       font-weight: 700;
-       background-image: linear-gradient(to right, var(--bgn-gr), var(--fn-gr));
+       background-image: linear-gradient(to right, var(--gradient-first-col), var(--gradient-second-color));
        -webkit-background-clip: text;
        -webkit-text-fill-color: transparent;
        cursor: pointer;
 }
 
-.btn-all:active {
+.btnImp:active {
        opacity: 0.6;
 }
+
+.btnAll {
+       color: var(--gradient-first-col);
+       margin-left: 10px;
+       font-size: 15px;
+       font-weight: 700;
+       background-image: linear-gradient(to right, var(--gradient-first-col), var(--gradient-second-color));
+       -webkit-background-clip: text;
+       -webkit-text-fill-color: transparent;
+       cursor: pointer;
+}
+
+.btnAll:active {
+       opacity: 0.6;
+}
+
 .empty-color {
-       color:var(--txt-col);
+       color: var(--txt-col);
        font-size: 25px;
        font-weight: 300;
 }
+
 .formSearch {
        align-self: center;
 }

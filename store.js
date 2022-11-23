@@ -4,25 +4,18 @@ export const todos = {
               this.tasks = todos;
        },
 
-       anotherTask(taskName, describeTask, completed, importance) {
+       addNewTask(taskName, taskDescription, completed, important) {
               const newTask = {
                      id: Math.random(),
                      taskName,
-                     describeTask,
+                     taskDescription,
                      completed,
-                     importance,
+                     important,
               }
               this.tasks.push(newTask);
        },
        removeTask(taskId) {
               this.tasks = this.tasks.filter(task => task.id !== taskId);
-              localStorage.setItem("tasks", JSON.stringify(this.tasks));
-
        },
 }
-let todosFromStorage = localStorage.getItem('tasks')
 
-if (todosFromStorage !== null) {
-       todosFromStorage = JSON.parse(todosFromStorage)
-       todos.setTodos(todosFromStorage)
-}

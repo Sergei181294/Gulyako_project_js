@@ -11,19 +11,19 @@
 
 <body data-theme="dark">
        <header>
-              <div class="modeAndFiltering">
+              <div class="blockForModeAndFiltering">
                      <form method="get" class="formMode">
                             <div class="themeDecor">
                                    <p class="nameTheme">Light Mode</p>
                                    <label class="switch">
-                                          <input type="checkbox" class="switch_input">
-                                          <span id="changeTheme" class="switch_slider"></span>
+                                          <input type="checkbox" class="switchInput">
+                                          <span id="changeTheme" class="switchSlider"></span>
                                    </label>
                             </div>
                      </form>
-                     <button class="btn-compl">Show completed tasks</button>
-                     <button class="btn-imp">Show important tasks</button>
-                     <button class="btn-all">Show all tasks</button>
+                     <button class="btnCompl">Show completed tasks</button>
+                     <button class="btnImp">Show important tasks</button>
+                     <button class="btnAll">Show all tasks</button>
               </div>
               <form method="get" class="formSearch">
                      <label>
@@ -32,25 +32,25 @@
               </form>
        </header>
        <main>
-       <section class="box">
-              <h1>Todo List 2022</h1>
-              <form method="get" class="form">
-                     <label>
-                            <input class="new-task-input" id="first-input" type="text" name="nameTask"
-                                   placeholder="Write about your task">
-                     </label>
-                     <label>
-                            <input class="new-task-input" id="second-input" type="text" name="description"
-                                   placeholder="Describe your task">
-                     </label>
-                     <button class="new-task-submit" type="submit">Add task</button>
-              </form>
-       </section>
-       <section class="box_2">
-              <h2>Tasks</h2>
-              <div class="divContent"></div>
-       </section>
-</main>
+              <section class="blockForAddTask">
+                     <h1>Todo List 2022</h1>
+                     <form method="get" class="form">
+                            <label>
+                                   <input id="addTaskName" type="text" name="nameTask"
+                                          placeholder="Write about your task">
+                            </label>
+                            <label>
+                                   <input id="addDescriptionTask" type="text" name="description"
+                                          placeholder="Describe your task">
+                            </label>
+                            <button class="newTaskSubmit" type="submit">Add task</button>
+                     </form>
+              </section>
+              <section class="blockForRenderTasks">
+                     <h2>Tasks</h2>
+                     <div class="divContent"></div>
+              </section>
+       </main>
 </body>
 <script type="module" src="index.js"></script>
 <script type="module" src="store.js"></script>
