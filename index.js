@@ -10,7 +10,7 @@ import { storage } from "./service.js";
        const divContent = document.querySelector(".divContent");
        const buttonAddTask = document.querySelector(".newTaskSubmit");
        const theme = document.getElementById("changeTheme");
-
+       const inputTheme = document.querySelector(".switchInput")
 
        function renderToDo() {
               divContent.innerHTML = null;
@@ -92,7 +92,6 @@ import { storage } from "./service.js";
               }
        }
 
-
        function searchTaskHandler(e) {
               if (e.target.value === "") {
                      todos.tasks = JSON.parse(localStorage.getItem("tasks"));
@@ -103,7 +102,6 @@ import { storage } from "./service.js";
               storage.setSearchTask(todos.tasks)
               renderToDo();
        }
-
 
        function changeThemeHandler() {
               const themeName = document.body.getAttribute("data-theme");
@@ -128,7 +126,6 @@ import { storage } from "./service.js";
               }
        }
 
-
        function changeImportanceHandler(e) {
               const importanceId = e.target.getAttribute("data-importance-id")
               if (importanceId) {
@@ -140,8 +137,6 @@ import { storage } from "./service.js";
                      renderToDo();
               }
        }
-
-
 
        function filteringTasksHandler(e) {
               e.preventDefault();
@@ -189,6 +184,10 @@ import { storage } from "./service.js";
        function init() {
               let todosFromStorage = storage.getTodos()
               todos.setTodos(todosFromStorage)
+
+              const themeFromStorage = storage.getTheme()
+              document.body.setAttribute("data-theme", themeFromStorage);
+              inputTheme.checked = themeFromStorage === 'light';
 
               divContent.addEventListener("click", removeTaskHandler)
               buttonAddTask.addEventListener("click", addTaskHandler)
