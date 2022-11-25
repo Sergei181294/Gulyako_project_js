@@ -79,12 +79,12 @@ import { storage } from "./service.js";
               };
               e.preventDefault();
               const inputTaskName = document.getElementById("addTaskName");
-              const inputTaskDescription = document.getElementById("addDescriptionTask");
+              const inputTaskDescription = document.querySelector("#addDescriptionTask");
               if (inputTaskName.value.length === 0) {
                      alert("Write about your task")
               } else {
                      task[inputTaskName.name] = inputTaskName.value;
-                     task[inputTaskDescription] = inputTaskDescription.value;
+                     task[inputTaskDescription.name] = inputTaskDescription.value;
                      todos.addNewTask(task.nameTask, task.description, task.completed, task.important);
                      renderToDo();
                      form.reset();
